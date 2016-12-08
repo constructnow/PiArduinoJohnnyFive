@@ -115,7 +115,13 @@ Now connect to the wireless network by selecting the network icon to the top rig
 
 Alternatively, you could click on the raspberry image in the top left corner > Preferences > raspberry pi configuration for a GUI that has the same options
 
-### 4. Setup the project on your PC
+### 4. Set up the hardware
+
+Connect your led to the Arduino as show below
+
+![diagram](diagram.png)
+
+### 5. Setup the project on your PC
 
 To test that the application actually works, connect the Arduino to your PC
 
@@ -143,7 +149,7 @@ http://localhost:3030
 You should see two buttons "Turn on" and "Turn off" and a slider, test them all out and see if you can controll the LED
 
 
-### 5. Setup the project on your Raspberry Pi
+### 6. Setup the project on your Raspberry Pi
 
 Now this is working lets get the raspberry pi doing all the lifting to allow you to control it from other devices
 
