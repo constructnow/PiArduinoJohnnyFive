@@ -1,0 +1,81 @@
+<html>
+    <head> 
+        <script
+        src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        crossorigin="anonymous"></script>
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="/rangeslider/rangeslider.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="/rangeslider/rangeslider.css">
+        <script>
+            var socket = io();
+            $(document).ready(function() {
+
+                var $element = $('input[type="range"]');
+                var $output = $('output');
+
+                $("#on").click(function() {
+                    console.log("Turning on light");
+                    $element.val(255).change();
+
+                });
+                $("#off").click(function() {
+                    console.log("Turning off light");
+                    $element.val(0).change();
+                });
+
+
+                function updateOutput(el, val) {
+                    el.textContent = val;
+                    console.log("Setting brightness to ", val);
+                    socket.emit('changeLight', {lightValue: val});
+                }
+                $element.rangeslider({
+                    polyfill: false,
+                    onInit: function() {
+                        updateOutput($output[0], this.value);
+                    }
+                }).on('input', function() {
+                    updateOutput($output[0], this.value);
+                });
+            });
+
+        </script>
+        <style>
+            body {
+            color: #404040;
+            padding: 50px;
+            }
+
+            h1 {
+            font-size: 1.6em;
+            font-weight: 300;
+            }
+
+            output {
+                font-size: 2em;
+                padding: .3em;
+                display: block;
+                width: 100%;
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+        <button id="on">Turn on</button>
+        <button id="off">Turn off</button>
+        <br>
+        <br>
+        <br>
+        <input
+            class="rangeslider rangeslider--horizontal"
+            type="range"
+            min="00"                    // default 0
+            max="255"                  // default 100
+            step="5"                   // default 1
+            value="0"                 // default min + (max-min)/2
+            data-orientation="horizontal" // default horizontal
+        >
+        <output>
+    </body>
+</html>
