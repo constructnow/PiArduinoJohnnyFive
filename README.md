@@ -29,7 +29,9 @@ First install NVM. NVM is a version manager for nodejs allowing you to have mult
 To install NVM:
 
 Mac/Linux: https://github.com/creationix/nvm#installation
+
 Windows: https://github.com/coreybutler/nvm-windows
+
 
 Now with nvm installed run the following command to install the latest version of nodejs
 ```
@@ -109,11 +111,80 @@ We want to change the device to allow ssh and vnc access.
 
 We also want to change the hostname to something we can remember but also so it doesn't conflict with any other hostnames on the network, the default is raspberrypi.local
 
-### 4. Setup your project on the Raspberry Pi
+Now connect to the wireless network by selecting the network icon to the top right corner of the screen
+
+Alternatively, you could click on the raspberry image in the top left corner > Preferences > raspberry pi configuration for a GUI that has the same options
+
+### 4. Setup the project on your PC
+
+To test that the application actually works, connect the Arduino to your PC
+
+Now clone this repo to your computer, if you know how to fork, that would be better
+```
+git clone https://github.com/constructnow/PiArduinoJohnnyFive.git && cd PiArduinoJohnnyFive 
+```
+
+Install all the dependencies
+```
+npm install
+```
 
 
-### 5. Run the express server on your network
+Now run the test application
+```
+node index.js
+```
+
+Wait until you receive the "Board is ready" message the open a web browser and type
+```
+http://localhost:3030
+```
+
+You should see two buttons "Turn on" and "Turn off" and a slider, test them all out and see if you can controll the LED
+
+
+### 5. Setup the project on your Raspberry Pi
+
+Now this is working lets get the raspberry pi doing all the lifting to allow you to control it from other devices
+
+On your Raspberry Pi, open the terminal, then navigate to the desktop and clone the repo
+
+```
+cd ~/Desktop && git clone https://github.com/constructnow/PiArduinoJohnnyFive.git && cd PiArduinoJohnnyFive
+```
+
+Now we need to install the latest version of node and npm as well as arduino. For convenience sake, I've prepared a setup script for you
+```
+bash ./setup/node_npm.should
+```
+
+
+**Important!** Close the terminal and open a new one, then navigate back to the project directory
+```
+cd ~/Desktop/PiArduinoJohnnyFive
+```
+
+Install the project dependencies
+```
+npm install
+```
+
+Plug in the Arduino then run the test application
+```
+node index.js
+```
+
+Wait until you receive the "Board is ready" message, then open a web browser and type
+```
+http://localhost:3030
+```
+
+Now from another computer on the network open a web browser and goto
+```
+http://(the hostname from step 3).local:3030
+```
 
 ## Refernces
 Johnny Five Javascript Robotics & IOT library - http://johnny-five.io/
+
 Interchange - https://github.com/johnny-five-io/¡nodebots-interchange
